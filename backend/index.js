@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 app.use(cors({
     origin: [
-        'http://localhost:3000',                
+        'https://pursuit-path-5o5426duf-bhuvanas-projects-06c391bb.vercel.app',                
         'https://pursuit-path.vercel.app'       
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

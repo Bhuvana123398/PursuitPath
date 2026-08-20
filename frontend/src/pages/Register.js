@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/signup', formData);
+      await axios.post(`${API_URL}/auth/signup`, formData);
       toast.success("Account Created! Please Login.");
       navigate('/login');
     } catch (err) {
