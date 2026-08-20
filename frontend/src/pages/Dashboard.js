@@ -3,6 +3,7 @@ import axios from 'axios';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import toast from 'react-hot-toast';
 import { Users, Calendar, Briefcase, Trash2, Layout, BarChart3, Clock, CheckCircle } from 'lucide-react';
+import { API_URL } from '../config';
 const Dashboard = () => {
     const [user] = useState(JSON.parse(localStorage.getItem('user')));
     const [recruiterJobs, setRecruiterJobs] = useState([]);

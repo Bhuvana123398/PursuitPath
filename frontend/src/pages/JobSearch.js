@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { API_URL } from '../config';
 const JobSearch = () => {
   const [query, setQuery] = useState('');
   const [jobs, setJobs] = useState([]);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { API_URL } from '../config';
 const Profile = () => {
     const [skillInput, setSkillInput] = useState("");
     const [skills, setSkills] = useState([]);
@@ -9,7 +10,7 @@ const Profile = () => {
         const fetchUserData = async () => {
             const token = localStorage.getItem('token');
             try {
-                const res = await axios.get('http://localhost:5000/api/auth/me', {
+                const res = await axios.get(`${API_URL}/auth/me`, {
                     headers: { Authorization: token }
                 });
                 setSkills(res.data.skills || []);
