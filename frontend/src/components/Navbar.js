@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, Briefcase, PlusCircle, Search, Layout, User, BarChart3 } from 'lucide-react';
+import { Layout, Search, LogOut, Briefcase, PlusCircle, User, BarChart3 } from 'lucide-react';
 
 const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
@@ -13,58 +13,80 @@ const Navbar = ({ user, setUser }) => {
   };
 
   return (
-    <nav className="bg-white border-b border-slate-200 px-4 py-3 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        
-        {/* Logo - Clicking this takes Candidates to Search, Recruiters to Stats */}
-        <Link to={user?.role === 'recruiter' ? "/dashboard" : "/"} className="flex items-center gap-2 text-indigo-600 font-bold text-xl">
-          <Briefcase size={22} />
-          <span>PursuitPath</span>
-        </Link>
-
-        {/* Dynamic Buttons based on Role */}
-        <div className="flex items-center gap-2 md:gap-4">
+    <nav className="bg-white border-b border-slate-200 px-4 py-4 shadow-sm sticky top-0 z-50 w-full">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <Link 
+            to={user?.role === 'recruiter' ? "/dashboard" : "/"} 
+            className="flex items-center gap-2 text-indigo-600 font-bold text-xl"
+          >
+            <Briefcase size={22} />
+            <span>PursuitPath</span>
+          </Link>
+          {user && (
+            <span className="md:hidden bg-indigo-50 text-indigo-600 px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider">
+              {user.name}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
           {user ? (
             <>
-              {user.role === 'recruiter' ? (
-                /* RECRUITER ONLY ICONS */
-                <>
-                  <Link title="Recruitment Stats" to="/dashboard" className="p-2 text-slate-600 hover:text-indigo-600 transition-colors">
-                    <BarChart3 size={20}/>
-                  </Link>
-                  <Link title="Post a New Job" to="/post-job" className="p-2 text-indigo-600 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-all flex items-center gap-1 font-bold border border-indigo-100">
-                    <PlusCircle size={20}/>
-                    <span className="hidden sm:inline text-xs uppercase tracking-wider">Post Job</span>
-                  </Link>
-                </>
-              ) : (
-                /* CANDIDATE ONLY ICONS */
-                <>
-                  <Link title="Search Jobs" to="/" className="p-2 text-slate-600 hover:text-indigo-600 transition-colors">
-                    <Search size={20}/>
-                  </Link>
-                  <Link title="My Pursuit Board" to="/dashboard" className="p-2 text-slate-600 hover:text-indigo-600 transition-colors">
-                    <Layout size={20}/>
-                  </Link>
-                </>
-              )}
+              <div className="flex items-center justify-center gap-5 md:gap-8 border-b md:border-none pb-2 md:pb-0 w-full md:w-auto">
+                
+                {user.role === 'recruiter' ? (
+                  <>
+                    <Link to="/dashboard" className="text-slate-600 hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+                      <BarChart3 size={20} />
+                      <span className="hidden sm:inline font-medium">Recruitment Stats</span>
+                    </Link>
+                    <Link to="/post-job" className="text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 font-bold transition-colors">
+                      <PlusCircle size={20} />
+                      <span className="hidden sm:inline">Post a Job</span>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/" className="text-slate-600 hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+                      <Search size={20} />
+                      <span className="hidden sm:inline font-medium">Search Jobs</span>
+                    </Link>
+                    <Link to="/dashboard" className="text-slate-600 hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+                      <Layout size={20} />
+                      <span className="hidden sm:inline font-medium">My Board</span>
+                    </Link>
+                    {/* Profile link ONLY for candidates */}
+                    <Link to="/profile" className="text-slate-600 hover:text-indigo-600 flex items-center gap-1.5 transition-colors">
+                      <User size={20} />
+                      <span className="hidden sm:inline font-medium">Profile</span>
+                    </Link>
+                  </>
+                )}
+              </div>
 
-              {/* Shared Profile Icon */}
-              <Link title="Profile" to="/profile" className="p-2 text-slate-600 hover:text-indigo-600 transition-colors">
-                <User size={20}/>
-              </Link>
-
-              <div className="h-6 w-[1px] bg-slate-200 mx-1 hidden md:block"></div>
-
-              {/* Logout button */}
-              <button onClick={handleLogout} className="text-red-500 font-bold text-sm px-3 py-1 hover:bg-red-50 rounded-lg transition-colors">
-                Logout
-              </button>
+              {/* LOGOUT & DESKTOP BADGE */}
+              <div className="flex items-center justify-center gap-4 w-full md:w-auto">
+                <button 
+                  onClick={handleLogout} 
+                  className="flex items-center gap-2 text-red-500 font-bold text-sm bg-red-50 md:bg-transparent px-4 py-2 md:px-0 md:py-0 rounded-xl hover:text-red-600 transition-all"
+                >
+                  <LogOut size={18} />
+                  <span>Logout</span>
+                </button>
+                
+                <span className="hidden md:inline-block bg-indigo-600 text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md shadow-indigo-100">
+                  {user.role}
+                </span>
+              </div>
             </>
           ) : (
-            <Link to="/login" className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all">
-              Login
-            </Link>
+            <div className="flex items-center gap-4">
+              {window.location.pathname !== '/login' && (
+                <Link to="/login" className="bg-indigo-600 text-white px-8 py-2 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all">
+                  Login
+                </Link>
+              )}
+            </div>
           )}
         </div>
       </div>
