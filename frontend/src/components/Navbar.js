@@ -25,24 +25,30 @@ const Navbar = ({ user, setUser }) => {
           </span>
         </div>
 
-        {/* Navigation Area */}
-        {user && (
-          <div className="flex flex-col items-center w-full md:w-auto gap-4 md:flex-row">
-            {/* Icon Links: Grid of 3 on mobile */}
-            <div className="flex items-center justify-center gap-8 md:gap-6 border-b md:border-none pb-3 md:pb-0 w-full md:w-auto">
-              {user.role === 'recruiter' ? (
-                <>
-                  <Link to="/dashboard" className="text-slate-600"><BarChart3 size={24} /></Link>
-                  <Link to="/post-job" className="text-indigo-600"><PlusCircle size={24} /></Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/" className="text-slate-600"><Search size={24} /></Link>
-                  <Link to="/dashboard" className="text-slate-600"><Layout size={24} /></Link>
-                </>
-              )}
-              <Link to="/profile" className="text-slate-600"><User size={24} /></Link>
-            </div>
+        <div className="flex items-center justify-center gap-4 md:gap-8">
+          {user ? (
+            <>
+              <Link to="/" className="p-2 text-slate-600 hover:text-indigo-600 flex items-center gap-1.5">
+                <Search size={20} />
+                <span className="hidden md:inline font-medium">Search</span>
+              </Link>
+              
+              <Link to="/dashboard" className="p-2 text-slate-600 hover:text-indigo-600 flex items-center gap-1.5">
+                <Layout size={20} />
+                <span className="hidden md:inline font-medium">Board</span>
+              </Link>
+
+              {/* Logout button needs to be visible on mobile */}
+              <button onClick={handleLogout} className="text-red-500 font-bold text-sm ml-2">
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold">
+              Login
+            </Link>
+          )}
+        </div>
 
             {/* Action Buttons */}
             <div className="flex items-center justify-center gap-4 w-full md:w-auto">
