@@ -139,12 +139,14 @@ const Dashboard = () => {
                         <h3 className="text-3xl font-bold text-slate-800">{recruiterJobs?.length || 0}</h3>
                         <p className="text-slate-400 font-bold text-xs uppercase tracking-widest">Active Listings</p>
                     </div>
-                    <div className="bg-indigo-600 p-6 md:p-8 rounded-[2rem] text-white shadow-xl shadow-indigo-100">
-                        <Users className="text-indigo-200 mb-4" size={32} />
-                        <h3 className="text-3xl font-bold">
+                    <div className="bg-emerald-600 p-8 rounded-[2.5rem] text-white shadow-xl shadow-emerald-100 transition-all hover:scale-[1.02]">
+                        <Users className="text-emerald-200 mb-4" size={32} />
+                        <h3 className="text-4xl font-bold">
                             {recruiterJobs?.reduce((acc, j) => acc + (j.saveCount || 0), 0) || 0}
                         </h3>
-                        <p className="text-indigo-100 font-bold text-xs uppercase tracking-widest">Candidate Saves</p>
+                        <p className="text-emerald-100 font-bold text-xs uppercase tracking-widest mt-1">
+                            Candidate Saves
+                        </p>
                     </div>
                     <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                         <CheckCircle className="text-green-500 mb-4" size={32} />
@@ -164,7 +166,7 @@ const Dashboard = () => {
                                     <span className="flex items-center gap-1.5 text-xs md:text-sm text-slate-500 font-medium">
                                         <Clock size={14} className="text-orange-500" /> Deadline: {job.deadline ? new Date(job.deadline).toLocaleDateString() : 'N/A'}
                                     </span>
-                                    <span className="flex items-center gap-1.5 text-xs md:text-sm text-indigo-600 font-bold bg-indigo-50 px-3 py-1 rounded-full">
+                                    <span className="flex items-center gap-1.5 text-sm text-emerald-700 font-bold bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
                                         <Users size={14} /> {job.saveCount || 0} Candidates
                                     </span>
                                     {job.avgMatch > 0 && (
